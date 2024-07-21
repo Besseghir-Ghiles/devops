@@ -28,12 +28,10 @@ jobs:
 
       - name: Clean npm cache and install dependencies
         run: |
-          npm cache clean --force
-          rm -rf node_modules
           npm install
 
       - name: Run tests
-        run: npx mocha
+        run: npm test
 
       - name: Build Docker image
         run: |
