@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD
 
 on:
   push:
@@ -32,32 +32,31 @@ jobs:
       - name: Ensure Mocha is executable
         run: chmod +x ./node_modules/.bin/mocha
 
-      - name: Clean up any processes on port 3001
-        run: |
-          lsof -t -i:3001 | xargs kill -9 || true
+      - name: Install express (if required by tests)
+        run: npm install express
 
-      - name: Start the server in background
+      - name: Start the server
         run: |
-          PORT=3001 nohup node server.js > server.log 2>&1 &
+          PORT=3000 nohup node server.js > server.log 2>&1 &
 
       - name: Wait for server to be available
         run: |
-          while ! nc -z localhost 3001; do
+          while ! nc -z localhost 3000; do
             echo "Waiting for server to start..."
             sleep 1
           done
           echo "Server is up and running."
 
-      - name: Run tests
+      - name: Run all tests
         run: npm test
 
       - name: Stop the server
         run: |
-          kill $(lsof -t -i:3001) || true
+          kill $(lsof -t -i:3000) || true
 
       - name: Build Docker image
         run: |
-          docker build -t ghilesbesseghir039469/pipeline:latest .
+          docker build -t hani9/pipeline:latest .
           docker images  # Optional: display Docker images for verification
 
       - name: Log in to Docker Hub
@@ -65,8 +64,4 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: |
-          docker push ghilesbesseghir039469/pipeline:latest
-
-      - name: Display server logs
-        run: cat server.log
-        if: failure()  # Display logs only if previous steps fail
+          docker push hani9/pipeline:latest
