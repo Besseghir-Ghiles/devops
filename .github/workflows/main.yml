@@ -26,12 +26,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Clean npm cache and install dependencies
+      - name: Clean and install dependencies
         run: |
+          rm -rf node_modules
+          npm cache clean --force
           npm install
 
+      - name: Ensure Mocha is executable
+        run: chmod +x ./node_modules/.bin/mocha
+
       - name: Run tests
-        run: npm test
+        run: npx mocha
 
       - name: Build Docker image
         run: |
