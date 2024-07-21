@@ -4,12 +4,12 @@
   "description": "A simple todo app for DevOps project",
   "main": "index.js",
   "scripts": {
-    "test": "node tests.js"
+    "test": "mocha tests.js"
   },
   "author": "GILET",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "^9.0.0",
-    "chai": "^4.3.0"
+    "chai": "^4.3.0",
+    "mocha": "^9.2.2"
   }
 }
