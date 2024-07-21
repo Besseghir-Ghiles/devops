@@ -1,3 +1,5 @@
+const assert = require("chai").assert;
+
 // Function to add a task (to be tested)
 function addTask(taskText) {
   if (taskText) {
@@ -7,9 +9,16 @@ function addTask(taskText) {
 }
 
 // Tests for addTask function
-console.assert(
-  addTask("Buy groceries") === "Buy groceries",
-  'Test Failed: Task should be "Buy groceries"'
-);
-console.assert(addTask("") === null, "Test Failed: Task should be null");
-console.assert(addTask(null) === null, "Test Failed: Task should be null");
+describe("addTask", function () {
+  it("should return task text when valid text is provided", function () {
+    assert.equal(addTask("Buy groceries"), "Buy groceries");
+  });
+  it("should return null when empty string is provided", function () {
+    assert.isNull(addTask(""));
+  });
+  it("should return null when null is provided", function () {
+    assert.isNull(addTask(null));
+  });
+});
+
+module.exports = addTask;

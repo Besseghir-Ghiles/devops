@@ -1,11 +1,15 @@
 {
-  "name": "devops",
+  "name": "todo-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple todo app for DevOps project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests.js"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "GILET",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^9.0.0",
+    "chai": "^4.3.0"
+  }
 }
