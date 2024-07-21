@@ -29,11 +29,14 @@ jobs:
           node --version
           npm --version
 
-      - name: List installed packages
-        run: ls -l node_modules/.bin
+      - name: List permissions of mocha
+        run: ls -l ./node_modules/.bin/mocha
+
+      - name: Fix permissions for mocha
+        run: chmod +x ./node_modules/.bin/mocha
 
       - name: Run tests
-        run: ./node_modules/.bin/mocha
+        run: npm test
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
