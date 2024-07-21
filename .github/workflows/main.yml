@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 20.x]
+        node-version: [16.x, 18.x, 20.x]
 
     steps:
       - name: Checkout repository
@@ -26,14 +26,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Ensure Mocha is executable
-        run: chmod +x ./node_modules/.bin/mocha
+      - name: Clean npm cache and install dependencies
+        run: |
+          npm cache clean --force
+          rm -rf node_modules
+          npm install
 
       - name: Run tests
-        run: npm test
+        run: npx mocha
 
       - name: Build Docker image
         run: |
