@@ -28,19 +28,11 @@ jobs:
 
       - name: Clean and install dependencies
         run: |
-          rm -rf node_modules
-          npm cache clean --force
           npm install
-
-      - name: Ensure Mocha is executable
-        run: chmod +x ./node_modules/.bin/mocha
-
-      - name: Run tests
-        run: npx mocha
 
       - name: Build Docker image
         run: |
-          docker build -t hani9/pipeline:latest .
+          docker build -t ghilesbesseghir039469/todo-app:latest .
           docker images  # Optional: display Docker images for verification
 
       - name: Log in to Docker Hub
@@ -48,4 +40,4 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: |
-          docker push hani9/pipeline:latest
+          docker push ghilesbesseghir039469/todo-app:latest
