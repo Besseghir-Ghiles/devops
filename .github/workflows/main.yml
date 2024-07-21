@@ -26,6 +26,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Clean up port 3000
+        run: |
+          lsof -t -i:3000 | xargs kill -9 || true
+
       - name: Install dependencies
         run: npm install
 
@@ -34,19 +38,20 @@ jobs:
 
       - name: Start the server in background
         run: |
-          nohup node server.js > server.log 2>&1 &
+          PORT=3001 nohup node server.js > server.log 2>&1 &
 
-      - name: Wait for server to start
+      - name: Wait for server to be available
         run: |
-          sleep 10 # Adjust sleep duration if needed
-          curl --silent --fail http://localhost:3000 > /dev/null
+          while ! nc -z localhost 3001; do
+            sleep 1
+          done
 
       - name: Run tests
         run: npm test
 
       - name: Stop the server
         run: |
-          kill $(lsof -t -i:3000) || true
+          kill $(lsof -t -i:3001) || true
 
       - name: Build Docker image
         run: |
