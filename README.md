@@ -1,4 +1,4 @@
-# Installaion 
+# Installation 
 
 1- Clone le projet:
 
