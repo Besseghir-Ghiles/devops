@@ -35,24 +35,9 @@ jobs:
       - name: Install express (if required by tests)
         run: npm install express
 
-      - name: Start the server
-        run: |
-          PORT=3000 nohup node server.js > server.log 2>&1 &
-
-      - name: Wait for server to be available
-        run: |
-          while ! nc -z localhost 3000; do
-            echo "Waiting for server to start..."
-            sleep 1
-          done
-          echo "Server is up and running."
-
       - name: Run all tests
         run: npm test
 
-      - name: Stop the server
-        run: |
-          kill $(lsof -t -i:3000) || true
 
       - name: Build Docker image
         run: |
