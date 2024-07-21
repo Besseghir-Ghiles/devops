@@ -5,9 +5,15 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "dependencies": {
-    "express": "^4.17.1"
-  }
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "chai-http": "^5.0.0",
+    "mocha": "^10.7.0"
+  },
+  "type": "module"
 }
